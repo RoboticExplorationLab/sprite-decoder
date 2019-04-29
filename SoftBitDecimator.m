@@ -1,11 +1,11 @@
-function softBits = SoftBitDecimator(corOut)
+function softBits = SoftBitDecimator(corOut,sps)
 
-    Decimation = 512;
+    Decimation = 512*sps;
 
-    softBits = zeros(floor((length(corOut)-256)/Decimation),1) + 0i;
+    softBits = zeros(floor((length(corOut)-256*sps)/Decimation),1) + 0i;
 
     windows1 = reshape(corOut(1:(Decimation*length(softBits))), Decimation, length(softBits));
-    windows2 = reshape(corOut(257:(256+(Decimation*length(softBits)))), Decimation, length(softBits));
+    windows2 = reshape(corOut((Decimation/2+1):(Decimation/2+(Decimation*length(softBits)))), Decimation, length(softBits));
 
     for k = 1:length(softBits)
 
